@@ -91,6 +91,8 @@ static void disconnectCallbackHandler(AWS_IoT_Client *pClient, void *data) {
 	}
 }
 
+//un test
+
 static void parseInputArgsForConnectParams(int argc, char **argv) {
 	int opt;
 
