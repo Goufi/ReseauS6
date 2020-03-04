@@ -251,7 +251,7 @@ int main(int argc, char **argv) {
 		sleep(1);
 		sprintf(cPayload, "%.2f", temperature);	//mike
 		paramsQOS0.payloadLen = strlen(cPayload);
-		rc = aws_iot_mqtt_publish(&client, "maTemperature", 13, &paramsQOS0);
+		rc = aws_iot_mqtt_publish(&client, "ma/Temperature", 14, &paramsQOS0);
 		if(publishCount > 0) 
     {
 			publishCount--;
