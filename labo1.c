@@ -238,18 +238,23 @@ int main(int argc, char **argv) {
 			continue;
 		}
     
+    
     float temperature;
     FILE *thermal;
     int n;
+    int i;
    
     thermal = fopen("/sys/devices/virtual/thermal/thermal_zone0/temp", "r");
     n = fscanf(thermal,"%5f",&temperature);
     temperature = temperature/1000;
     fclose(thermal);
     
+    char jsonComplet[] = "{ "row" : i, "pos" : 0, "temperature" : temperature });
+    i++;
+    
 		IOT_INFO("-->sleep");
 		sleep(1);
-		sprintf(cPayload, "%.2f", temperature);	//mike
+		sprintf(cPayload, "%.2f", jsonComplet);	//mike
 		paramsQOS0.payloadLen = strlen(cPayload);
 		rc = aws_iot_mqtt_publish(&client, "ma/Temperature", 14, &paramsQOS0);
 		if(publishCount > 0) 
