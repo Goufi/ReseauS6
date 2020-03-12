@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <limits.h>
 #include <string.h>
+#include <time.h> 
 
 #include "aws_iot_config.h"
 #include "aws_iot_log.h"
@@ -241,7 +242,10 @@ int main(int argc, char **argv) {
     float temperature;
     FILE *thermal;
     int n;
+    char buffer[256];
+    time_t t = time(NULL);
    
+    strftime(buffer, sizeof(buffer), "%Y %m %d - %X", localtime(&t));
     thermal = fopen("/sys/devices/virtual/thermal/thermal_zone0/temp", "r");
     n = fscanf(thermal,"%5f",&temperature);
     temperature = temperature/1000;
@@ -250,8 +254,9 @@ int main(int argc, char **argv) {
     
     
 		IOT_INFO("-->sleep");
-		sleep(60);
-		sprintf(cPayload, "{\n\"row\" : %d,\n\"pos\" : \"0\",\n\"temperature\" : %.2f\n}",i,temperature);	//mike
+		sleep(1);
+		sprintf(cPayload, "{\n\"row\" : %d,\n\"pos\" : \"0\",\n\"temperature\" : %.2f,\n\"Timestamp\" : \"%s\"\n}",i,temperature,buffer);	//mike
+   
 		i++;
 		paramsQOS0.payloadLen = strlen(cPayload);
 		rc = aws_iot_mqtt_publish(&client, "ma/Temperature", 14, &paramsQOS0);
