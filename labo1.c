@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
     
     
 		IOT_INFO("-->sleep");
-		sleep(1);
+		sleep(60);
 		sprintf(cPayload, "{\n\"row\" : %d,\n\"pos\" : \"0\",\n\"temperature\" : %.2f,\n\"Timestamp\" : \"%s\"\n}",i,temperature,buffer);	//mike
    
 		i++;
